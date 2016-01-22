@@ -433,6 +433,50 @@ paths:
         204:
           description: Successfully deleted transformation
           
+          
+          
+  
+  /{user}/queriable_data_stores:
+    get:
+      description: Obtain a list of all public queriable data for a user. If provided with an enabled API key for that user, returns also the private queriable data.¨
+      produces:
+        - application/json
+      parameters:
+        - name: user
+          required: true
+          description: ID of the user for whom to obtain the queriable data
+          in: path
+          type: string
+      security:
+        - APIKey: []
+      responses:
+          200:
+            description: Successfully retrieved the list of queriable data.
+            
+    post:
+      description: Create a new queriable data to be stored
+      produces: 
+        - application/json
+      parameters:
+        - name: user
+          required: true
+          description: ID of the user for whom to obtain the quireable data
+          in: path
+          type: string
+        - name: queriable_data_store
+          in: body
+          schema:
+            $ref: '#/definitions/QueriableData'
+          required: true
+      security:
+        - APIKey: []
+      responses:
+        200:
+          description: Successfully created the queriable data
+          
+          
+          
+          
   /explore:
     get:
       description: Get a list of all browsable public assets
@@ -493,4 +537,12 @@ definitions:
       code: 
         type: string
         description: JSON representation of a Grafterizer transformation
-  
+  QueriableData:
+    properties:
+      public:
+        type: boolean
+      name: 
+        type: string
+      code:
+        type: string
+        
