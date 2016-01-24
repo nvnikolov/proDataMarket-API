@@ -297,6 +297,51 @@ paths:
         200:
           description: Successfully deleted distribution
           
+  /{user}/data_distributions/{id}/star:
+    post:
+      description: (NOT TESTED) Star the selected data distribution
+      produces:
+        - application/json
+      parameters:
+        - name: user
+          in: path
+          required: true
+          description: ID of the user for who to star the data distribution
+          type: string
+        - name: id
+          in: path
+          required: true 
+          description: ID (slug) of the data distribution to be stared
+          type: string
+      security:
+        - APIKey: []
+      responses:
+        200:
+          description: Successfully gave the data distribution a star
+          
+  /{user}/data_distributions/{id}/unstar:
+    post:
+      description: (NOT TESTED) Unstar the selected data distribution
+      produces:
+        - application/json
+      parameters:
+        - name: user
+          in: path
+          required: true
+          description: ID of the user for who to unstar the data distribution
+          type: string
+        - name: id
+          in: path
+          required: true 
+          description: ID (slug) of the data distribution to be unstared
+          type: string
+      security:
+        - APIKey: []
+      responses:
+        200:
+          description: Successfully unstared the data distribution        
+          
+          
   /{user}/transformations:
     get:
       description: Obtain a list of all public transformations for a user. If provided with an enabled API key for that user, returns also the private transformations.
@@ -433,9 +478,53 @@ paths:
         204:
           description: Successfully deleted transformation
           
+  /{user}/transformations/{id}/star:
+    post:
+      description: Star the selected transformation
+      produces:
+        - application/json
+      parameters:
+        - name: user
+          in: path
+          required: true
+          description: ID of the user for who to star the transformation
+          type: string
+        - name: id
+          in: path
+          required: true 
+          description: ID (slug) of the transformation to be stared
+          type: string
+      security:
+        - APIKey: []
+      responses:
+        200:
+          description: Successfully gave the transformation a star
           
-          
+  /{user}/transformations/{id}/unstar:
+    post:
+      description: Unstar the selected transformation
+      produces:
+        - application/json
+      parameters:
+        - name: user
+          in: path
+          required: true
+          description: ID of the user for who to unstar the transformation
+          type: string
+        - name: id
+          in: path
+          required: true 
+          description: ID (slug) of the transformation to be unstared
+          type: string
+      security:
+        - APIKey: []
+      responses:
+        200:
+          description: Successfully unstared the transformation
   
+  
+  
+          
   /{user}/queriable_data_stores:
     get:
       description: Obtain a list of all public queriable data for a user. If provided with an enabled API key for that user, returns also the private queriable data.¨
@@ -655,8 +744,7 @@ paths:
         - APIKey: []
       responses:
         200:
-          description: Successfully gave unstared the queriable data
-
+          description: Successfully unstared the queriable data
 
   /{user}/queriable_data_stores/{id}/versions:
     get:
