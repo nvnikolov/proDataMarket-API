@@ -474,8 +474,124 @@ paths:
         200:
           description: Successfully created the queriable data
           
-          
-          
+  /{user}/queriable_data_stores/{id}:
+    get:
+      description: Obtain the attributes of the given queriable data
+      produces:
+        - application/json
+      parameters:
+        - name: user
+          in: path
+          required: true
+          description: ID of the user for who to obtain the queriable data
+          type: string
+        - name: id
+          in: path
+          required: true 
+          description: ID (slug) of the queriable data to retrieve
+          type: string
+      security:
+        - APIKey: []
+      responses:
+        200:
+          description: Successfully obtained queriable data
+    delete:
+      description: Delete a queriable data
+      produces:
+        - application/json
+      parameters:
+        - name: user
+          in: path
+          required: true
+          description: ID of the user who wants to delete the queriable data
+          type: string
+        - name: id
+          in: path
+          required: true
+          description: ID (slug) of the queriable data to delete
+          type: string
+      security: 
+        - APIKey: []
+      responses:
+        204:
+          description: Successfully deleted the queriable data
+    put:
+      description: Update a queriable data (replace the currently stored one with the one provided in the call)
+      produces: 
+        - application/json
+      parameters:
+        - name: user
+          in: path
+          required: true
+          description: ID of the user for who to obtain the queriable data
+          type: string
+        - name: id
+          in: path
+          required: true 
+          description: ID (slug) of the queriable data to retrieve
+          type: string
+        - name: queriable_data_store
+          in: body
+          schema:
+            $ref: '#/definitions/QueriableData'
+          required: true
+      security:
+        - APIKey: []
+      responses:  
+        200:
+          description: Successfully updated the queriable data
+    put:
+      description: Update a queriable data (replace the currently stored one with the one provided in the call)
+      produces: 
+        - application/json
+      parameters:
+        - name: user
+          in: path
+          required: true
+          description: ID of the user for who to obtain the queriable data
+          type: string
+        - name: id
+          in: path
+          required: true 
+          description: ID (slug) of the queriable data to retrieve
+          type: string
+        - name: queriable_data_store
+          in: body
+          schema:
+            $ref: '#/definitions/QueriableData'
+          required: true
+      security:
+        - APIKey: []
+      responses:  
+        200:
+          description: Successfully updated the queriable data
+    patch:
+      description: Update a queriable data (only change the properties provided in the call)
+      produces: 
+        - application/json
+      parameters:
+        - name: user
+          in: path
+          required: true
+          description: ID of the user for who to obtain the queriable data
+          type: string
+        - name: id
+          in: path
+          required: true 
+          description: ID (slug) of the queriable data to retrieve
+          type: string
+        - name: queriable_data_store
+          in: body
+          schema:
+            $ref: '#/definitions/QueriableData'
+          required: true
+      security:
+        - APIKey: []
+      responses:  
+        200:
+          description: Successfully updated the queriable data
+  
+
           
   /explore:
     get:
