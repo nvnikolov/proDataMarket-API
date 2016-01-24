@@ -591,7 +591,96 @@ paths:
         200:
           description: Successfully updated the queriable data
   
+  /{user}/queriable_data_stores/{id}/edit:
+    get:
+      description: NOT IMPLEMENTED?? Doesn't work... (Retrieve the code for the queriable data for edit)
+      produces:
+        - application/json
+      parameters:
+        - name: user
+          in: path
+          required: true
+          description: ID of the user for who to edit the queriable data
+          type: string
+        - name: id
+          in: path
+          required: true 
+          description: ID (slug) of the queriable data to be edited
+          type: string
+      security:
+        - APIKey: []
+      responses:
+        200:
+          description: Successfully retrieved the queriable data
+  
+  /{user}/queriable_data_stores/{id}/star:
+    post:
+      description: Star the selected queriable data
+      produces:
+        - application/json
+      parameters:
+        - name: user
+          in: path
+          required: true
+          description: ID of the user for who to star the queriable data
+          type: string
+        - name: id
+          in: path
+          required: true 
+          description: ID (slug) of the queriable data to be stared
+          type: string
+      security:
+        - APIKey: []
+      responses:
+        200:
+          description: Successfully gave the queriable data a star
+          
+  /{user}/queriable_data_stores/{id}/unstar:
+    post:
+      description: Unstar the selected queriable data
+      produces:
+        - application/json
+      parameters:
+        - name: user
+          in: path
+          required: true
+          description: ID of the user for who to unstar the queriable data
+          type: string
+        - name: id
+          in: path
+          required: true 
+          description: ID (slug) of the queriable data to be unstared
+          type: string
+      security:
+        - APIKey: []
+      responses:
+        200:
+          description: Successfully gave unstared the queriable data
 
+
+  /{user}/queriable_data_stores/{id}/versions:
+    get:
+      description: INVALID! Is this implemented?? (Retrieve versions of the queriable data)
+      produces:
+        - application/json
+      parameters:
+        - name: user
+          in: path
+          required: true
+          description: ID of the user for who to obtain the queriable data
+          type: string
+        - name: id
+          in: path
+          required: true 
+          description: ID (slug) of the queriable data to retrieve
+          type: string
+      security:
+        - APIKey: []
+      responses:
+        200:
+          description: Information about the versions of the queried queriable data
+     
+      
           
   /explore:
     get:
