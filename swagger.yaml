@@ -117,7 +117,26 @@ paths:
       responses:
         204:
           description: Successfully deleted API key
-      
+    
+  
+  /{username}/catalogues:
+    get:
+      description: Obtain a list of all public catalogues for a user. If provided with an enabled API key for that user,   returns also the private catalogues.
+      produces:
+        - application/json
+      parameters:
+        - name: user
+          required: true
+          in: path
+          type: string
+      security:
+        - APIKey: []
+      responses:
+        200:
+          description: Successfully retrieved list of catalogues
+
+
+
   /{user}/data_distributions: 
     get:
       description: Obtain a list of all public data distributions for a user. If provided with an enabled API key for that user, returns also the private data distributions.
@@ -297,6 +316,51 @@ paths:
         200:
           description: Successfully deleted distribution
           
+  /{user}/data_distributions/{id}/star:
+    post:
+      description: (NOT TESTED) Star the selected data distribution
+      produces:
+        - application/json
+      parameters:
+        - name: user
+          in: path
+          required: true
+          description: ID of the user for who to star the data distribution
+          type: string
+        - name: id
+          in: path
+          required: true 
+          description: ID (slug) of the data distribution to be stared
+          type: string
+      security:
+        - APIKey: []
+      responses:
+        200:
+          description: Successfully gave the data distribution a star
+          
+  /{user}/data_distributions/{id}/unstar:
+    post:
+      description: (NOT TESTED) Unstar the selected data distribution
+      produces:
+        - application/json
+      parameters:
+        - name: user
+          in: path
+          required: true
+          description: ID of the user for who to unstar the data distribution
+          type: string
+        - name: id
+          in: path
+          required: true 
+          description: ID (slug) of the data distribution to be unstared
+          type: string
+      security:
+        - APIKey: []
+      responses:
+        200:
+          description: Successfully unstared the data distribution        
+          
+          
   /{user}/transformations:
     get:
       description: Obtain a list of all public transformations for a user. If provided with an enabled API key for that user, returns also the private transformations.
@@ -433,6 +497,298 @@ paths:
         204:
           description: Successfully deleted transformation
           
+  /{user}/transformations/{id}/star:
+    post:
+      description: Star the selected transformation
+      produces:
+        - application/json
+      parameters:
+        - name: user
+          in: path
+          required: true
+          description: ID of the user for who to star the transformation
+          type: string
+        - name: id
+          in: path
+          required: true 
+          description: ID (slug) of the transformation to be stared
+          type: string
+      security:
+        - APIKey: []
+      responses:
+        200:
+          description: Successfully gave the transformation a star
+          
+  /{user}/transformations/{id}/unstar:
+    post:
+      description: Unstar the selected transformation
+      produces:
+        - application/json
+      parameters:
+        - name: user
+          in: path
+          required: true
+          description: ID of the user for who to unstar the transformation
+          type: string
+        - name: id
+          in: path
+          required: true 
+          description: ID (slug) of the transformation to be unstared
+          type: string
+      security:
+        - APIKey: []
+      responses:
+        200:
+          description: Successfully unstared the transformation
+  
+  
+  
+          
+  /{user}/queriable_data_stores:
+    get:
+      description: Obtain a list of all public queriable data for a user. If provided with an enabled API key for that user, returns also the private queriable data.¨
+      produces:
+        - application/json
+      parameters:
+        - name: user
+          required: true
+          description: ID of the user for whom to obtain the queriable data
+          in: path
+          type: string
+      security:
+        - APIKey: []
+      responses:
+          200:
+            description: Successfully retrieved the list of queriable data.
+            
+    post:
+      description: Create a new queriable data to be stored
+      produces: 
+        - application/json
+      parameters:
+        - name: user
+          required: true
+          description: ID of the user for whom to obtain the quireable data
+          in: path
+          type: string
+        - name: queriable_data_store
+          in: body
+          schema:
+            $ref: '#/definitions/QueriableData'
+          required: true
+      security:
+        - APIKey: []
+      responses:
+        200:
+          description: Successfully created the queriable data
+          
+  /{user}/queriable_data_stores/{id}:
+    get:
+      description: Obtain the attributes of the given queriable data
+      produces:
+        - application/json
+      parameters:
+        - name: user
+          in: path
+          required: true
+          description: ID of the user for who to obtain the queriable data
+          type: string
+        - name: id
+          in: path
+          required: true 
+          description: ID (slug) of the queriable data to retrieve
+          type: string
+      security:
+        - APIKey: []
+      responses:
+        200:
+          description: Successfully obtained queriable data
+    delete:
+      description: Delete a queriable data
+      produces:
+        - application/json
+      parameters:
+        - name: user
+          in: path
+          required: true
+          description: ID of the user who wants to delete the queriable data
+          type: string
+        - name: id
+          in: path
+          required: true
+          description: ID (slug) of the queriable data to delete
+          type: string
+      security: 
+        - APIKey: []
+      responses:
+        204:
+          description: Successfully deleted the queriable data
+    put:
+      description: Update a queriable data (replace the currently stored one with the one provided in the call)
+      produces: 
+        - application/json
+      parameters:
+        - name: user
+          in: path
+          required: true
+          description: ID of the user for who to obtain the queriable data
+          type: string
+        - name: id
+          in: path
+          required: true 
+          description: ID (slug) of the queriable data to retrieve
+          type: string
+        - name: queriable_data_store
+          in: body
+          schema:
+            $ref: '#/definitions/QueriableData'
+          required: true
+      security:
+        - APIKey: []
+      responses:  
+        200:
+          description: Successfully updated the queriable data
+    put:
+      description: Update a queriable data (replace the currently stored one with the one provided in the call)
+      produces: 
+        - application/json
+      parameters:
+        - name: user
+          in: path
+          required: true
+          description: ID of the user for who to obtain the queriable data
+          type: string
+        - name: id
+          in: path
+          required: true 
+          description: ID (slug) of the queriable data to retrieve
+          type: string
+        - name: queriable_data_store
+          in: body
+          schema:
+            $ref: '#/definitions/QueriableData'
+          required: true
+      security:
+        - APIKey: []
+      responses:  
+        200:
+          description: Successfully updated the queriable data
+    patch:
+      description: Update a queriable data (only change the properties provided in the call)
+      produces: 
+        - application/json
+      parameters:
+        - name: user
+          in: path
+          required: true
+          description: ID of the user for who to obtain the queriable data
+          type: string
+        - name: id
+          in: path
+          required: true 
+          description: ID (slug) of the queriable data to retrieve
+          type: string
+        - name: queriable_data_store
+          in: body
+          schema:
+            $ref: '#/definitions/QueriableData'
+          required: true
+      security:
+        - APIKey: []
+      responses:  
+        200:
+          description: Successfully updated the queriable data
+  
+  /{user}/queriable_data_stores/{id}/edit:
+    get:
+      description: NOT IMPLEMENTED?? Doesn't work... (Retrieve the code for the queriable data for edit)
+      produces:
+        - application/json
+      parameters:
+        - name: user
+          in: path
+          required: true
+          description: ID of the user for who to edit the queriable data
+          type: string
+        - name: id
+          in: path
+          required: true 
+          description: ID (slug) of the queriable data to be edited
+          type: string
+      security:
+        - APIKey: []
+      responses:
+        200:
+          description: Successfully retrieved the queriable data
+  
+  /{user}/queriable_data_stores/{id}/star:
+    post:
+      description: Star the selected queriable data
+      produces:
+        - application/json
+      parameters:
+        - name: user
+          in: path
+          required: true
+          description: ID of the user for who to star the queriable data
+          type: string
+        - name: id
+          in: path
+          required: true 
+          description: ID (slug) of the queriable data to be stared
+          type: string
+      security:
+        - APIKey: []
+      responses:
+        200:
+          description: Successfully gave the queriable data a star
+          
+  /{user}/queriable_data_stores/{id}/unstar:
+    post:
+      description: Unstar the selected queriable data
+      produces:
+        - application/json
+      parameters:
+        - name: user
+          in: path
+          required: true
+          description: ID of the user for who to unstar the queriable data
+          type: string
+        - name: id
+          in: path
+          required: true 
+          description: ID (slug) of the queriable data to be unstared
+          type: string
+      security:
+        - APIKey: []
+      responses:
+        200:
+          description: Successfully unstared the queriable data
+
+  /{user}/queriable_data_stores/{id}/versions:
+    get:
+      description: INVALID! Is this implemented?? (Retrieve versions of the queriable data)
+      produces:
+        - application/json
+      parameters:
+        - name: user
+          in: path
+          required: true
+          description: ID of the user for who to obtain the queriable data
+          type: string
+        - name: id
+          in: path
+          required: true 
+          description: ID (slug) of the queriable data to retrieve
+          type: string
+      security:
+        - APIKey: []
+      responses:
+        200:
+          description: Information about the versions of the queried queriable data
+     
+      
+          
   /explore:
     get:
       description: Get a list of all browsable public assets
@@ -493,4 +849,12 @@ definitions:
       code: 
         type: string
         description: JSON representation of a Grafterizer transformation
-  
+  QueriableData:
+    properties:
+      public:
+        type: boolean
+      name: 
+        type: string
+      code:
+        type: string
+        
