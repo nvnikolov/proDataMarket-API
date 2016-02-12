@@ -701,7 +701,7 @@ paths:
           
   /{user}/queriable_data_stores:
     get:
-      description: Obtain a list of all public queriable data for a user. If provided with an enabled API key for that user, returns also the private queriable data.¨
+      description: Obtain a list of all public queriable data for a user. If provided with an enabled API key for that user, returns also the private queriable data.
       produces:
         - application/json
       parameters:
@@ -942,7 +942,44 @@ paths:
         200:
           description: Information about the versions of the queried queriable data
      
+    
+  /{user}/utility_functions:
+    get:
+      description: Obtain a list of all public utility functions for a user. If provided with an enabled API key for that user, returns also the private utility functions.
+      produces:
+        - application/json
+      parameters:
+        - name: user
+          required: true
+          description: ID of the user for whom to obtain the utility functions
+          in: path
+          type: string
+      security:
+        - APIKey: []
+      responses: 
+        200:
+          description: Successfully retrieved the list of utility functions
       
+    post:
+      description: Create a new utility function
+      produces:
+        - application/json
+      parameters:
+        - name: user
+          required: true
+          description: ID of the user for whom to create the utility function
+          in: path
+          type: string
+        - name: utility_function
+          in: body
+          schema:
+            $ref: '#/definitions/UtilityFunction'
+          required: true
+      security:
+        - APIKey: []
+      responses:
+        201:
+          description: Successfully created the utility function
           
   /explore:
     get:
@@ -1018,4 +1055,13 @@ definitions:
         type: boolean
       name:
         type: string
-        
+  UtilityFunction:
+    properties:
+      public:
+        type: boolean
+      name:
+        type: string
+      metadata:
+        type: string
+      configuration:
+        type: string
