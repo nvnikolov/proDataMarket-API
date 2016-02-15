@@ -651,7 +651,54 @@ paths:
       responses:
         204:
           description: Successfully deleted transformation
-          
+  
+  /{user}/transformations/{id}/metadata:
+    get:
+      description: Retrieve meta data for the chosen transformation
+      produces: 
+        - application/json
+      parameters:
+        - name: user
+          in: path
+          required: true
+          description: ID of the user for who to obtain the meta data for the transformation
+          type: string
+        - name: id
+          in: path
+          required: true
+          description: ID (slug) of the transformation for which to retrieve the meta data
+          type: string
+      security:
+        - APIKey: []
+      responses:
+        200:
+          description: Successfully retrieved the meta data for the transformation
+    post:
+      description: Create meta data for the chosen transformation
+      produces:
+        - application/json
+      parameters:
+        - name: user
+          in: path
+          required: true
+          description: ID of the user for who to create the meta data for the transformation
+          type: string
+        - name: id
+          in: path
+          required: true
+          description: ID (slug) of the transformation for which to create the meta data
+          type: string
+        - name: metadata
+          in: body
+          schema:
+            $ref: '#/definitions/MetaData'
+          required: true
+      security:
+        - APIKey: []
+      responses:
+        200:
+          description: Successfully created the meta data
+  
   /{user}/transformations/{id}/star:
     post:
       description: Star the selected transformation
@@ -673,7 +720,7 @@ paths:
       responses:
         200:
           description: Successfully gave the transformation a star
-          
+  
   /{user}/transformations/{id}/unstar:
     post:
       description: Unstar the selected transformation
@@ -1072,6 +1119,53 @@ paths:
         200:
           description: Successfully updated the utility function
           
+  /{user}/utility_functions/{id}/metadata:
+    get:
+      description: Retrieve meta data for the chosen utility function
+      produces:
+        - application/json
+      parameters:
+        - name: user
+          in: path
+          required: true
+          description: ID of the user for who to obtain the meta data for the utility function
+          type: string
+        - name: id
+          in: path
+          required: true
+          description: ID (slug) of the utility function for which retrieve the meta data
+          type: string
+      security:
+        - APIKey: []
+      responses:
+        200:
+          description: Successfully retrieved metadata
+    post:
+      description: Create meta data for the given utility function
+      produces:
+        - application/json
+      parameters:
+        - name: user
+          in: path
+          required: true
+          description: ID of the user for who to create the meta data for the utility function
+          type: string
+        - name: id
+          in: path
+          required: true
+          description: ID (slug) of the utility function for which to create meta data
+          type: string
+        - name: metadata
+          in: body
+          schema:
+            $ref: '#/definitions/MetaData'
+          required: true
+      security:
+        - APIKey: []
+      responses:
+        200:
+          description: Successfully created metadata
+  
   /{user}/utility_functions/{id}/star:
     post:
       description: Star the selected utility function
@@ -1201,4 +1295,8 @@ definitions:
       metadata:
         type: string
       configuration:
+        type: string
+  MetaData:
+    properties:
+      metadata:
         type: string
